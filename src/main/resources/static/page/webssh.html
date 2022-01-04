@@ -30,7 +30,7 @@
 <script src="../js/xterm.js" charset="utf-8"></script>
 <script src="../js/webssh.js" charset="utf-8"></script>
 <script>
-    var GlobalHost='192.168.127.132';//IP
+    var GlobalHost = '192.168.127.132';//IP
     openTerminal({
         operate: 'connect',
         host: GlobalHost,//IP
@@ -38,11 +38,14 @@
         username: 'root',//用户名
         password: 'opzpy12.'//密码
     });
-    $("#downloadBtn").click(function (){
-        window.location.href="http://"+GlobalHost+":8080/file/download?path="+$("#downloadPath").value();
+    $("#downloadBtn").click(function () {
+        var downloadUrl = "http://" + GlobalHost + ":8080/file/download?path=" + $("#downloadPath").value();
+        console.log("downloadUrl:" + downloadUrl)
+        window.location.href = downloadUrl;
     })
 
     function openTerminal(options) {
+        console.log(options)
         var client = new WSSHClient();
         var term = new Terminal({
             cols: 97,
