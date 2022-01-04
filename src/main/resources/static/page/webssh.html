@@ -9,18 +9,13 @@
 <body>
 <div>
     <div>
-        文件上传：<br>
-        <form action="/file/upload" method="post" enctype="multipart/form-data">
-            <input name="file" type="file" id="file"><br/>
-            path:<input name="path" type="text" id="path">
-            <input type="submit" value="提交"><br/>
-        </form>
+        文件上传：<a href="/file/upload">跳转</a><br>
     </div>
     <hr>
     <div>
         文件下载：<br>
         path:<input name="path" type="text" id="downloadPath">
-        <button id="downloadBtn">下载</button>
+        <button onclick="downloadFile()">下载</button>
     </div>
     <hr>
 </div>
@@ -38,11 +33,13 @@
         username: 'root',//用户名
         password: 'opzpy12.'//密码
     });
-    $("#downloadBtn").click(function () {
-        var downloadUrl = "http://" + GlobalHost + ":8080/file/download?path=" + $("#downloadPath").value();
+
+    function downloadFile() {
+        let downloadPath = document.getElementById("downloadPath").value;
+        var downloadUrl = "http://" + GlobalHost + ":8080/file/download?path=" + downloadPath;
         console.log("downloadUrl:" + downloadUrl)
-        window.location.href = downloadUrl;
-    })
+        window.open(downloadUrl);
+    }
 
     function openTerminal(options) {
         console.log(options)

@@ -27,7 +27,7 @@ public class FileController {
         System.out.println(file.getOriginalFilename());
         System.out.println(path);
         upload(file, path);
-        return file.getOriginalFilename() + ";;" + path;
+        return "上传成功:"+path+file;
     }
 
     private void upload(MultipartFile uploadFile, String path) throws IOException {
@@ -38,26 +38,63 @@ public class FileController {
 
     @GetMapping("/download")
     @ResponseBody
-    public void fileDownload(HttpServletResponse response,String path) throws IOException {
+    public void fileDownload(HttpServletResponse response, String path) throws IOException {
         System.out.println(path);
+//        File file = new File(path);
+//        FileInputStream fileInputStream = new FileInputStream(file);
+//        BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+//        try {
+//            response.setHeader("Content-disposition", "attachment; filename="
+//                    + URLEncoder.encode(file.getName(), "UTF-8"));
+//
+//            byte[] b = new byte[bufferedInputStream.available()];
+//            bufferedInputStream.read(b);
+//            OutputStream outputStream = response.getOutputStream();
+//            outputStream.write(b);
+//            bufferedInputStream.close();
+//            outputStream.flush();
+//            outputStream.close();
+//            fileInputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         File file = new File(path);
-        FileInputStream fileInputStream = new FileInputStream(file);
-        BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-        try {
-            response.setHeader("Content-disposition", "attachment; filename="
-                    + URLEncoder.encode(file.getName(), "UTF-8"));
+        download(response, path, file.getName());
+    }
 
-            byte[] b = new byte[bufferedInputStream.available()];
-            bufferedInputStream.read(b);
-            OutputStream outputStream = response.getOutputStream();
-            outputStream.write(b);
-            bufferedInputStream.close();
-            outputStream.flush();
-            outputStream.close();
+    private void download(HttpServletResponse response, String path, String fileName) throws UnsupportedEncodingException {
+
+        response.reset();
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+        response.setHeader("Connection", "close");
+        response.setHeader("Content-Type", "application/octet-stream");
+
+        OutputStream ops = null;
+        FileInputStream fis = null;
+        byte[] buffer = new byte[8192];
+        int bytesRead = 0;
+
+        try {
+            ops = response.getOutputStream();
+            fis = new FileInputStream(path);
+            while ((bytesRead = fis.read(buffer, 0, 8192)) != -1) {
+                ops.write(buffer, 0, bytesRead);
+            }
+            ops.flush();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+                if (ops != null) {
+                    ops.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
 
