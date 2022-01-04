@@ -9,7 +9,7 @@
 <body>
 <div>
     <div>
-        文件上传：<a href="/file/upload">跳转</a><br>
+        文件上传：<a href="/file/upload" target="_blank">跳转</a><br>
     </div>
     <hr>
     <div>
@@ -38,7 +38,7 @@
         let downloadPath = document.getElementById("downloadPath").value;
         var downloadUrl = "http://" + GlobalHost + ":8080/file/download?path=" + downloadPath;
         console.log("downloadUrl:" + downloadUrl)
-        window.open(downloadUrl);
+        window.location.href = downloadUrl;
     }
 
     function openTerminal(options) {

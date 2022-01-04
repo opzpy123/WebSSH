@@ -23,11 +23,16 @@ public class FileController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public String fileUpload(MultipartFile file, String path) throws IOException {
+    public String fileUpload(MultipartFile file, String path) {
         System.out.println(file.getOriginalFilename());
         System.out.println(path);
-        upload(file, path);
-        return "上传成功:"+path+file;
+        try {
+            upload(file, path);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "上传失败:" + e.getMessage();
+        }
+        return "上传成功:" + path + file;
     }
 
     private void upload(MultipartFile uploadFile, String path) throws IOException {
