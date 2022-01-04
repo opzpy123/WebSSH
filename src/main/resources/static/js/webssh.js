@@ -1,13 +1,14 @@
 function WSSHClient() {
 };
-
+var GlobalHost;
 WSSHClient.prototype._generateEndpoint = function () {
     if (window.location.protocol == 'https:') {
         var protocol = 'wss://';
     } else {
         var protocol = 'ws://';
     }
-    var endpoint = protocol+'127.0.0.1:8080/webssh';
+    // var endpoint = protocol+'127.0.0.1:8080/webssh';
+    var endpoint = protocol + GlobalHost + ':8080/webssh';
     return endpoint;
 };
 
@@ -17,7 +18,7 @@ WSSHClient.prototype.connect = function (options) {
     if (window.WebSocket) {
         //如果支持websocket
         this._connection = new WebSocket(endpoint);
-    }else {
+    } else {
         //否则报错
         options.onError('WebSocket Not Supported');
         return;
@@ -44,6 +45,7 @@ WSSHClient.prototype.send = function (data) {
 };
 
 WSSHClient.prototype.sendInitData = function (options) {
+    GlobalHost = options.host;
     //连接参数
     this._connection.send(JSON.stringify(options));
 }
