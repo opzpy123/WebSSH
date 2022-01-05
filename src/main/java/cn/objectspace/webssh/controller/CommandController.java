@@ -1,36 +1,33 @@
 package cn.objectspace.webssh.controller;
 
+import cn.objectspace.webssh.pojo.ApiResponse;
 import cn.objectspace.webssh.pojo.CmdDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("cmd")
 public class CommandController {
-    InputStream in = null;
 
     @PostMapping("/exec")
     @ResponseBody
-    public String execCmd(@RequestBody CmdDTO cmd) {
-        System.out.println(cmd);
-        try {
-            Process pro = Runtime.getRuntime().exec(cmd.getCmd());
-            pro.waitFor();
-            in = pro.getInputStream();
-            BufferedReader read = new BufferedReader(new InputStreamReader(in, "GBK"));
-            StringBuilder sb = new StringBuilder();
-            sb.append("命令执行结果:\n");
-            while (read.ready()) {
-                String s = read.readLine();
-                sb.append(s);
-                System.out.println(s);
-            }
-            return sb.toString();
+    public ApiResponse<String> execCmd(@RequestBody CmdDTO cmd) throws IOException, InterruptedException {
+//        Process process = Runtime.getRuntime().exec(new String[]{"/bin/sh", "-c", cmd.getCmd()});
+        Process process = Runtime.getRuntime().exec(cmd.getCmd());
+        String res = null;
+        process.waitFor();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), Charset.forName("GBK")))) {
+            String collect = reader.lines().collect(Collectors.joining("\n"));
+            System.out.println(collect);
+            res = collect;
         } catch (Exception e) {
-            return e.getMessage();
+            e.printStackTrace();
         }
+        return ApiResponse.ofSuccess(res);
     }
 }

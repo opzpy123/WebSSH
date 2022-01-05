@@ -1,5 +1,6 @@
 package cn.objectspace.webssh.service;
 
+import com.jcraft.jsch.JSchException;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ public interface WebSSHService {
      * @Author: NoCortY
      * @Date: 2020/3/7
      */
-    public void initConnection(WebSocketSession session);
+    public void initConnection(WebSocketSession session) throws JSchException;
 
     /**
      * @Description: 处理客户段发的数据

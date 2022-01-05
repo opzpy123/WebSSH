@@ -26,10 +26,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
-* @Description: WebSSH业务逻辑实现
-* @Author: NoCortY
-* @Date: 2020/3/8
-*/
+ * @Description: WebSSH业务逻辑实现
+ * @Author: NoCortY
+ * @Date: 2020/3/8
+ */
 @Service
 public class WebSSHServiceImpl implements WebSSHService {
     //存放ssh连接信息的map
@@ -140,10 +140,14 @@ public class WebSSHServiceImpl implements WebSSHService {
         Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");
         //获取jsch的会话
-        session = sshConnectInfo.getjSch().getSession(webSSHData.getUsername(), webSSHData.getHost(), webSSHData.getPort());
+        JSch jSch = sshConnectInfo.getjSch();
+        String privateKey = "~/.ssh/id_rsa";
+        jSch.addIdentity(privateKey);
+        session = jSch.getSession(webSSHData.getUsername(), webSSHData.getHost(), webSSHData.getPort());
         session.setConfig(config);
+
         //设置密码
-        session.setPassword(webSSHData.getPassword());
+//        session.setPassword(webSSHData.getPassword());
         //连接  超时时间30s
         session.connect(30000);
 

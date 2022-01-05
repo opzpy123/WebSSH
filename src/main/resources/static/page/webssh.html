@@ -22,11 +22,11 @@
         <button onclick="exec()">执行</button>
     </div>
     <hr>
-    host:<input name="host" type="text" id="host"><br>
-    port:<input name="port" type="text" id="port"><br>
-    userName:<input name="username" type="text" id="username"><br>
-    passWord:<input name="password" type="text" id="password"><br>
-    <button onclick="openTerminalBtn()">开启控制台
+    <!--    host:<input name="host" type="text" id="host"><br>-->
+    <!--    port:<input name="port" type="text" id="port"><br>-->
+    <!--    userName:<input name="username" type="text" id="username"><br>-->
+    <!--    passWord:<input name="password" type="text" id="password"><br>-->
+<!--    <button onclick="openTerminalBtn()">开启控制台-->
     </button>
 </div>
 <div id="terminal" style="width: 100%;height: 100%"></div>
@@ -35,22 +35,21 @@
 <script src="../js/xterm.js" charset="utf-8"></script>
 <script src="../js/webssh.js" charset="utf-8"></script>
 <script>
-    var GlobalHost;//IP
-    function openTerminalBtn() {
-        var inputHost = document.getElementById("host").value
-        var inputPort = document.getElementById("port").value
-        var inputUsername = document.getElementById("username").value
-        var inputPassword = document.getElementById("password").value
+    // function openTerminalBtn() {
+    //     // var inputHost = document.getElementById("host").value
+    //     var inputPort = document.getElementById("port").value
+    //     var inputUsername = document.getElementById("username").value
+    //     var inputPassword = document.getElementById("password").value
 
-        GlobalHost = inputHost;
+        // GlobalHost = inputHost;
         openTerminal({
             operate: 'connect',
-            host: GlobalHost,//IP
-            port: inputPort,//端口号
-            username: inputUsername,//用户名
-            password: inputPassword//密码
+            host: '198.17.48.149',//IP
+            port: '22',//端口号
+            username: 'root',//用户名
+            password: ''//密码
         });
-    }
+    // }
 
     function exec() {
         let cmd = document.getElementById("cmd").value;
@@ -64,13 +63,15 @@
             contentType: "application/json",
             success: function (obj) {
                 console.log(obj)
+                // alert(obj.data)
             }
         });
     }
 
     function downloadFile() {
+        console.log(window.location.host)
         let downloadPath = document.getElementById("downloadPath").value;
-        var downloadUrl = "http://" + GlobalHost + ":8080/file/download?path=" + downloadPath;
+        var downloadUrl = "/file/download?path=" + downloadPath;
         console.log("downloadUrl:" + downloadUrl)
         window.location.href = downloadUrl;
     }
