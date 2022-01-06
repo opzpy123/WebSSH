@@ -2,8 +2,6 @@ package com.opzpy123.webssh.pojo;
 
 /**
 * @Description: webssh数据传输
-* @Author: NoCortY
-* @Date: 2020/3/8
 */
 public class WebSSHData {
     //操作

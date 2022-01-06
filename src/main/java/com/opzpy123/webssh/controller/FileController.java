@@ -1,5 +1,6 @@
 package com.opzpy123.webssh.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 
+@Slf4j
 @Controller
 @RequestMapping("file")
 public class FileController {
@@ -24,8 +26,7 @@ public class FileController {
     @PostMapping("/upload")
     @ResponseBody
     public String fileUpload(MultipartFile file, String path) {
-        System.out.println(file.getOriginalFilename());
-        System.out.println(path);
+        log.info("文件：{}上传到:{}",file.getOriginalFilename(),path);
         try {
             upload(file, path);
         } catch (Exception e) {
@@ -44,25 +45,7 @@ public class FileController {
     @GetMapping("/download")
     @ResponseBody
     public void fileDownload(HttpServletResponse response, String path) throws IOException {
-        System.out.println(path);
-//        File file = new File(path);
-//        FileInputStream fileInputStream = new FileInputStream(file);
-//        BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-//        try {
-//            response.setHeader("Content-disposition", "attachment; filename="
-//                    + URLEncoder.encode(file.getName(), "UTF-8"));
-//
-//            byte[] b = new byte[bufferedInputStream.available()];
-//            bufferedInputStream.read(b);
-//            OutputStream outputStream = response.getOutputStream();
-//            outputStream.write(b);
-//            bufferedInputStream.close();
-//            outputStream.flush();
-//            outputStream.close();
-//            fileInputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        log.info("文件下载:{}",path);
         File file = new File(path);
         download(response, path, file.getName());
     }

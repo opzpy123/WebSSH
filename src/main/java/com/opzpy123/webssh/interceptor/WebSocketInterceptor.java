@@ -14,9 +14,6 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
     /**
      * @Description: Handler处理前调用
      * @Param: [serverHttpRequest, serverHttpResponse, webSocketHandler, map]
-     * @return: boolean
-     * @Author: NoCortY
-     * @Date: 2020/3/1
      */
     @Override
     public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {

@@ -5,8 +5,6 @@ import com.jcraft.jsch.JSch;
 import org.springframework.web.socket.WebSocketSession;
 /**
 * @Description: ssh连接信息
-* @Author: NoCortY
-* @Date: 2020/3/8
 */
 public class SSHConnectInfo {
     private WebSocketSession webSocketSession;

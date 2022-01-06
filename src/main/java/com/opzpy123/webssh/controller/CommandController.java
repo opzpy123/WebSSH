@@ -2,6 +2,7 @@ package com.opzpy123.webssh.controller;
 
 import com.opzpy123.webssh.pojo.ApiResponse;
 import com.opzpy123.webssh.pojo.CmdDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Controller
 @RequestMapping("cmd")
 public class CommandController {
@@ -22,7 +24,7 @@ public class CommandController {
         process.waitFor();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), Charset.forName("GBK")))) {
             String collect = reader.lines().collect(Collectors.joining("\n"));
-            System.out.println(collect);
+            log.info(collect);
             res = collect;
         } catch (Exception e) {
             e.printStackTrace();
