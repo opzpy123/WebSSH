@@ -1,4 +1,4 @@
-package cn.objectspace;
+package com.opzpy123;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

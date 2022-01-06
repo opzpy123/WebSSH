@@ -1,7 +1,7 @@
-package cn.objectspace.webssh.websocket;
+package com.opzpy123.webssh.websocket;
 
-import cn.objectspace.webssh.constant.ConstantPool;
-import cn.objectspace.webssh.service.WebSSHService;
+import com.opzpy123.webssh.constant.ConstantPool;
+import com.opzpy123.webssh.service.WebSSHService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

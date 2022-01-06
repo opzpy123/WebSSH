@@ -1,13 +1,12 @@
-package cn.objectspace.webssh.controller;
+package com.opzpy123.webssh.controller;
 
-import cn.objectspace.webssh.pojo.ApiResponse;
-import cn.objectspace.webssh.pojo.CmdDTO;
+import com.opzpy123.webssh.pojo.ApiResponse;
+import com.opzpy123.webssh.pojo.CmdDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 @Controller

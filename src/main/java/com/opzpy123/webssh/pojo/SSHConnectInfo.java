@@ -1,4 +1,4 @@
-package cn.objectspace.webssh.pojo;
+package com.opzpy123.webssh.pojo;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;

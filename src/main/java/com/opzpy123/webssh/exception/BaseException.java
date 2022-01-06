@@ -1,6 +1,6 @@
-package cn.objectspace.webssh.exception;
+package com.opzpy123.webssh.exception;
 
-import cn.objectspace.webssh.constant.Status;
+import com.opzpy123.webssh.constant.Status;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

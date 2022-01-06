@@ -1,6 +1,8 @@
 server:
-  port: 8080
+  port: 7789
 spring:
+  application:
+    name: webssh
   mvc:
     view:
       prefix: /page/
@@ -9,3 +11,9 @@ spring:
     multipart:
       max-file-size: 1024000KB
       maxRequestSize: 1024000KB
+
+config:
+  host: 127.0.0.1
+  port: 22
+  username: root
+  password: opzpy123

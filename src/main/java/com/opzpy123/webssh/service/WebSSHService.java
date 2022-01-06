@@ -1,4 +1,4 @@
-package cn.objectspace.webssh.service;
+package com.opzpy123.webssh.service;
 
 import com.jcraft.jsch.JSchException;
 import org.springframework.web.socket.WebSocketSession;

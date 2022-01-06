@@ -1,4 +1,4 @@
-package cn.objectspace.webssh.constant;
+package com.opzpy123.webssh.constant;
 
 /**
 * @Description: 常量池

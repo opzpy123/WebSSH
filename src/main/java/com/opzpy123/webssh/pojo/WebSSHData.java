@@ -1,4 +1,4 @@
-package cn.objectspace.webssh.pojo;
+package com.opzpy123.webssh.pojo;
 
 /**
 * @Description: webssh数据传输

@@ -1,7 +1,7 @@
-package cn.objectspace.webssh.pojo;
+package com.opzpy123.webssh.pojo;
 
-import cn.objectspace.webssh.constant.Status;
-import cn.objectspace.webssh.exception.BaseException;
+import com.opzpy123.webssh.constant.Status;
+import com.opzpy123.webssh.exception.BaseException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
