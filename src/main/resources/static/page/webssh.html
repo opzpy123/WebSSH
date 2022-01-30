@@ -26,8 +26,8 @@
     <!--    port:<input name="port" type="text" id="port"><br>-->
     <!--    userName:<input name="username" type="text" id="username"><br>-->
     <!--    passWord:<input name="password" type="text" id="password"><br>-->
-<!--    <button onclick="openTerminalBtn()">开启控制台-->
-    </button>
+    <!--    <button onclick="openTerminalBtn()">开启控制台-->
+    <!--    </button>-->
 </div>
 <div id="terminal" style="width: 100%;height: 100%"></div>
 
@@ -35,21 +35,28 @@
 <script src="../js/xterm.js" charset="utf-8"></script>
 <script src="../js/webssh.js" charset="utf-8"></script>
 <script>
-    // function openTerminalBtn() {
-    //     // var inputHost = document.getElementById("host").value
-    //     var inputPort = document.getElementById("port").value
-    //     var inputUsername = document.getElementById("username").value
-    //     var inputPassword = document.getElementById("password").value
+    var options;
+    getSshConfig();
 
-        // GlobalHost = inputHost;
-        openTerminal({
-            operate: 'connect',
-            host: '198.17.48.149',//IP
-            port: '22',//端口号
-            username: 'root',//用户名
-            password: ''//密码
+    function getSshConfig() {
+        $.ajax({
+            url: "/config/ssh",
+            type: "get",
+            success: function (obj) {
+                console.log(obj);
+                options = {
+                    operate: 'connect',
+                    host: obj.data.host,//IP
+                    port: obj.data.port,//端口号
+                    username: obj.data.username,//用户名
+                    password: obj.data.password//密码
+                }
+            }
         });
-    // }
+    }
+
+    setTimeout(openTerminal,500)
+    // openTerminal();
 
     function exec() {
         let cmd = document.getElementById("cmd").value;
@@ -76,8 +83,8 @@
         window.location.href = downloadUrl;
     }
 
-    function openTerminal(options) {
-        console.log(options)
+    function openTerminal() {
+        console.log("options:"+JSON.stringify(options))
         var client = new WSSHClient();
         var term = new Terminal({
             cols: 97,

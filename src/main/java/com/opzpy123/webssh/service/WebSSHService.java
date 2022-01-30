@@ -68,16 +68,13 @@ public class WebSSHService {
             SSHConnectInfo sshConnectInfo = (SSHConnectInfo) sshMap.get(userId);
             //启动线程异步处理
             WebSSHData finalWebSSHData = webSSHData;
-            executorService.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        connectToSSH(sshConnectInfo, finalWebSSHData, session);
-                    } catch (JSchException | IOException e) {
-                        log.error("webssh连接异常");
-                        log.error("异常信息:{}", e.getMessage());
-                        close(session);
-                    }
+            executorService.execute(() -> {
+                try {
+                    connectToSSH(sshConnectInfo, finalWebSSHData, session);
+                } catch (JSchException | IOException e) {
+                    log.error("webssh连接异常");
+                    log.error("异常信息:{}", e.getMessage());
+                    close(session);
                 }
             });
         } else if (ConstantPool.WEBSSH_OPERATE_COMMAND.equals(webSSHData.getOperate())) {
